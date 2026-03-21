@@ -1,6 +1,8 @@
 ﻿using BepInEx;
 using HarmonyLib;
 using BepInEx.Configuration;
+using UnityEngine;
+using Burlak.Interface;
 
 namespace Burlak {
     [BepInPlugin(ModInfo.GUID, ModInfo.MODNAME, ModInfo.VERSION)]
@@ -29,6 +31,15 @@ namespace Burlak {
                 "Pull",
                 "Localication of the 'pull' word"
             );
+        }
+    }
+
+    [HarmonyPatch(typeof(Ship), "Awake")]
+    internal static class Penis {
+        private static void Postfix(ref Ship __instance) {
+            GameObject go = __instance.gameObject;
+            if (!go.TryGetComponent<TowingHandle>(out _))
+                go.AddComponent<TowingHandle>();
         }
     }
 }
