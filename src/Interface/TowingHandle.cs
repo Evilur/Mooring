@@ -24,13 +24,25 @@ namespace Burlak.Interface {
 
             /* Remove old components (if exist) */
             {
-                if (gameObject
-                        .TryGetComponent<LineRenderer>(out LineRenderer line))
-                    Destroy(line);
-            } {
-                if (gameObject
-                        .TryGetComponent<LineConnect>(out LineConnect line))
-                    Destroy(line);
+                bool need_to_exit = false;
+
+                /* Destroy old objects */
+                {
+                    if (gameObject.TryGetComponent<LineRenderer>(
+                                out LineRenderer line)) {
+                        Destroy(line);
+                        need_to_exit = true;
+                    }
+                } {
+                    if (gameObject.TryGetComponent<LineConnect>(
+                                out LineConnect line)) {
+                        Destroy(line);
+                        need_to_exit = true;
+                    }
+                }
+
+                /* Exit with the success code */
+                if (need_to_exit) return true;
             }
 
             /* Setting the LineRenderer component */
