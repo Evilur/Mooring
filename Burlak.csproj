@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <!-- General properties -->
+    <PropertyGroup>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+        <PlatformTarget>x86</PlatformTarget>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>Burlak</RootNamespace>
+        <AssemblyName>Burlak</AssemblyName>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <Deterministic>true</Deterministic>
+        <LangVersion>7.3</LangVersion>
+        <WarningLevel>4</WarningLevel>
+        <OutputPath>bin\</OutputPath>
+    </PropertyGroup>
+    <!-- Properties for Debug and Release -->
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>false</Optimize>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugType>None</DebugType>
+        <Optimize>true</Optimize>
+    </PropertyGroup>
+    <ItemGroup>
+        <!-- Files to compile -->
+        <Compile Include="src\**\*.cs" />
+        <!-- FContent Files -->
+        <None Include="libs\*.dll" />
+        <!-- References -->
+        <Reference Include="0Harmony">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>libs\0Harmony.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="assembly_utils">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>libs\assembly_utils.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="assembly_valheim">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>libs\assembly_valheim.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="BepInEx">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>libs\BepInEx.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>libs\UnityEngine.CoreModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>libs\UnityEngine.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
