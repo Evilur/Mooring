@@ -66,6 +66,9 @@ namespace Burlak.Core {
 
                 /* Set the width */
                 line.startWidth = line.endWidth = _ropeWidth;
+
+                /* Set the number of points */
+                line.positionCount = 256;
             }
 
             /* Setting the LineConnect component */
@@ -81,6 +84,12 @@ namespace Burlak.Core {
 
                 /* Disable the dynamic thickness */
                 line.m_dynamicThickness = false;
+
+                /* Enable synamic slack */
+                line.m_dynamicSlack = true;
+
+                /* Set slack */
+                line.SetSlack(0.05f);
             }
 
             /* Play the sound */
