@@ -16,8 +16,8 @@ namespace Burlak.Core {
         private Rigidbody _shipRigidBody = null;
 
         /* Pull values */
-        private static float force = 10f;
-        private static float maxSpeed = 1.5f;
+        private static float force = 50;
+        private static float maxSpeed = 1;
         private static float maxRotation = 0.1f;
         private static ForceMode mode = ForceMode.Acceleration;
 
@@ -147,6 +147,8 @@ namespace Burlak.Core {
             _shipRigidBody.linearVelocity =
                 Vector3.ClampMagnitude(_shipRigidBody.linearVelocity,
                                        maxSpeed);
+
+            /* Lock the rotation speed */
             _shipRigidBody.angularVelocity =
                 Vector3.ClampMagnitude(_shipRigidBody.angularVelocity,
                                        maxRotation);
@@ -159,12 +161,19 @@ namespace Burlak.Core {
             Vector3 delta = playerPos - transform.position;
 
             /* If the player is too close to she ship, do nothing */
-            if (delta.sqrMagnitude < 3f * 3f) return;
+            if (delta.sqrMagnitude < 3 * 3) return;
 
-            /* Apply the force to the ship */
-            _shipRigidBody.AddForceAtPosition(delta.normalized * force,
-                                              transform.position,
-                                              mode);
+            /* Get the force verctor */
+            Vector3 pullForce = delta.normalized * force;
+
+            /* Get the torque force vector */
+            Vector3 torque = Vector3.Cross(transform.position -
+                                           _shipRigidBody.worldCenterOfMass,
+                                           pullForce);
+
+            /* Apply the forces to the ship */
+            _shipRigidBody.AddForce(pullForce, mode);
+            _shipRigidBody.AddTorque(torque * 0.01f, mode);
         }
 
         private void PlaySound() {
