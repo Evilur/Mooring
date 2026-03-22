@@ -15,14 +15,11 @@ namespace Burlak.Core {
         /* The ship's rigid body component */
         private Rigidbody _shipRigidBody = null;
 
-        /* The ship's base maxAngularVelocity value */
-        private float _shipBaseAngularVelocity = 7f;
-
         /* Pull values */
-        private const float force = 50f;
-        private const float maxSpeed = 1f;
-        private const float maxRotation = 0.25f;
-        private const ForceMode mode = ForceMode.Acceleration;
+        private static float force = 10f;
+        private static float maxSpeed = 1.5f;
+        private static float maxRotation = 0.1f;
+        private static ForceMode mode = ForceMode.Acceleration;
 
         /* Set interactible text */
         public string GetHoverText() =>
@@ -96,9 +93,6 @@ namespace Burlak.Core {
             _ship = transform.parent.GetComponent<Ship>();
             _shipRigidBody = _ship.GetComponent<Rigidbody>();
 
-            /* Set the maxAngularVelocity */
-            _shipRigidBody.maxAngularVelocity = maxRotation;
-
             /* Return the success */
             return true;
         }
@@ -110,9 +104,6 @@ namespace Burlak.Core {
         private void DetachPlayer() {
             /* Play the sound */
             PlaySound();
-
-            /* Restore the maxAngularVelocity */
-            _shipRigidBody.maxAngularVelocity = _shipBaseAngularVelocity;
 
             {
                 if (gameObject.TryGetComponent<LineRenderer>(
@@ -134,10 +125,13 @@ namespace Burlak.Core {
 
             /* Make this sphere as a trigger */
             sphere.isTrigger = true;
+
+            /* Apply the 'vehice' layer */
+            gameObject.layer = LayerMask.NameToLayer("vehicle");
         }
 
         private void FixedUpdate() {
-            /* If the there is not atteched players */
+            /* If the there is not attached players */
             if (_player == null) return;
 
             /* If the player wants to detach */
@@ -150,14 +144,12 @@ namespace Burlak.Core {
             if (!_player.IsBlocking() || _ship.HasPlayerOnboard()) return;
 
             /* Lock the speed */
-            if (_shipRigidBody.linearVelocity.magnitude > maxSpeed)
-                _shipRigidBody.linearVelocity =
-                    _shipRigidBody.linearVelocity.normalized * maxSpeed;
-
-            /* Lock the rotation */
-            if (_shipRigidBody.angularVelocity.magnitude > maxRotation)
-                _shipRigidBody.angularVelocity =
-                    _shipRigidBody.angularVelocity.normalized * maxRotation;
+            _shipRigidBody.linearVelocity =
+                Vector3.ClampMagnitude(_shipRigidBody.linearVelocity,
+                                       maxSpeed);
+            _shipRigidBody.angularVelocity =
+                Vector3.ClampMagnitude(_shipRigidBody.angularVelocity,
+                                       maxRotation);
 
             /* Get the player's center position */
             Vector3 playerPos = _player.transform.position;
