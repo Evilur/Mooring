@@ -15,10 +15,13 @@ namespace Burlak.Core {
         /* The ship's rigid body component */
         private Rigidbody _shipRigidBody = null;
 
+        /* The ship's base maxAngularVelocity value */
+        private float _shipBaseAngularVelocity = 7f;
+
         /* Pull values */
         private const float force = 50f;
         private const float maxSpeed = 1f;
-        private const float maxRotation = 0.1f;
+        private const float maxRotation = 0.25f;
         private const ForceMode mode = ForceMode.Acceleration;
 
         /* Set interactible text */
@@ -83,12 +86,18 @@ namespace Burlak.Core {
                 line.m_dynamicThickness = false;
             }
 
+            /* Play the sound */
+            PlaySound();
+
             /* Save the attached player */
             _player = player;
 
             /* Update the ship and ship's rigid body */
             _ship = transform.parent.GetComponent<Ship>();
             _shipRigidBody = _ship.GetComponent<Rigidbody>();
+
+            /* Set the maxAngularVelocity */
+            _shipRigidBody.maxAngularVelocity = maxRotation;
 
             /* Return the success */
             return true;
@@ -99,6 +108,12 @@ namespace Burlak.Core {
 
         /* Detach the player from the ship */
         private void DetachPlayer() {
+            /* Play the sound */
+            PlaySound();
+
+            /* Restore the maxAngularVelocity */
+            _shipRigidBody.maxAngularVelocity = _shipBaseAngularVelocity;
+
             {
                 if (gameObject.TryGetComponent<LineRenderer>(
                             out LineRenderer line)) Destroy(line);
@@ -158,6 +173,11 @@ namespace Burlak.Core {
             _shipRigidBody.AddForceAtPosition(delta.normalized * force,
                                               transform.position,
                                               mode);
+        }
+
+        private void PlaySound() {
+            GameObject prefab = ZNetScene.instance.GetPrefab("sfx_unarmed_hit");
+            Instantiate(prefab, transform.position, Quaternion.identity);
         }
     }
 }
