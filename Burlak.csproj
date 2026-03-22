@@ -58,6 +58,11 @@
             <HintPath>libs\UnityEngine.CoreModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <SpecificVersion>False</SpecificVersion>
+            <HintPath>libs\UnityEngine.PhysicsModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
         <Reference Include="UnityEngine">
             <SpecificVersion>False</SpecificVersion>
             <HintPath>libs\UnityEngine.dll</HintPath>
