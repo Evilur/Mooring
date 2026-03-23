@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Linq;
-using HarmonyLib;
-using System.Reflection;
 
 namespace Mooring.Core {
     internal class TowingHandle : MonoBehaviour, Hoverable, Interactable {
@@ -11,10 +9,6 @@ namespace Mooring.Core {
         /* The player, attached to the handle */
         private Player _player = null;
 
-        /* Player's StopEmote method */
-        private MethodInfo _playerStopAnimation =
-            AccessTools.Method(typeof(Player), "StopEmote");
-
         /* The ship object */
         private Ship _ship = null;
 
@@ -22,6 +16,7 @@ namespace Mooring.Core {
         private Rigidbody _shipRigidBody = null;
 
         /* Pull values */
+        [Header("Force")]
         private static float force = 50;
         private static float maxSpeed = 1;
         private static float maxRotation = 0.1f;
@@ -149,9 +144,6 @@ namespace Mooring.Core {
             /* If the there is not attached players */
             if (_player == null) return;
 
-            /* Stop the player animation */
-            _playerStopAnimation.Invoke(_player, null);
-
             /* If the player wants to detach */
             if (_player.IsCrouching()) {
                 DetachPlayer();
@@ -160,9 +152,6 @@ namespace Mooring.Core {
 
             /* If the player wants to pull the ship */
             if (!_player.IsBlocking() || _ship.HasPlayerOnboard()) return;
-
-            /* Animate the player */
-            _player.StartEmote("cheer");
 
             /* Lock the speed */
             _shipRigidBody.linearVelocity =
