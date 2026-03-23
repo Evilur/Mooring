@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using Burlak;
+using Mooring;
 
 [assembly: AssemblyTitle(ModInfo.MODNAME)]
 [assembly: AssemblyCompany(ModInfo.AUTHOR)]

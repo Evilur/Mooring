@@ -3,7 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using System.Reflection;
 
-namespace Burlak.Core {
+namespace Mooring.Core {
     internal class TowingHandle : MonoBehaviour, Hoverable, Interactable {
         /* The rope width */
         private const float _ropeWidth = 0.075f;

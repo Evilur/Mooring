@@ -1,8 +1,8 @@
 using HarmonyLib;
 using UnityEngine;
-using Burlak.Core;
+using Mooring.Core;
 
-namespace Burlak.Patch {
+namespace Mooring.Patch {
     [HarmonyPatch(typeof(Ship), "Awake")]
     internal static class PatchShipAwake {
         private static void Postfix(ref Ship __instance) {

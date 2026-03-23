@@ -2,7 +2,7 @@
 using HarmonyLib;
 using BepInEx.Configuration;
 
-namespace Burlak {
+namespace Mooring {
     [BepInPlugin(ModInfo.GUID, ModInfo.MODNAME, ModInfo.VERSION)]
     internal class Main : BaseUnityPlugin {
         private static ConfigEntry<string> _locale_ship;

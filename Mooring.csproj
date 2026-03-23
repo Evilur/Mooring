@@ -9,8 +9,8 @@
         <PlatformTarget>x86</PlatformTarget>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>Burlak</RootNamespace>
-        <AssemblyName>Burlak</AssemblyName>
+        <RootNamespace>Mooring</RootNamespace>
+        <AssemblyName>Mooring</AssemblyName>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <Deterministic>true</Deterministic>

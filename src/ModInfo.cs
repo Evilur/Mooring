@@ -1,6 +1,6 @@
-﻿namespace Burlak {
+﻿namespace Mooring {
     internal readonly struct ModInfo {
-        public const string MODNAME = "Burlak",
+        public const string MODNAME = "Mooring",
         AUTHOR = "Evilur",
         GUID = AUTHOR + "." + MODNAME,
         VERSION = "1.0.0",
