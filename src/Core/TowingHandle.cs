@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Linq;
+using HarmonyLib;
+using System.Reflection;
 
 namespace Burlak.Core {
     internal class TowingHandle : MonoBehaviour, Hoverable, Interactable {
@@ -7,7 +9,11 @@ namespace Burlak.Core {
         private const float _ropeWidth = 0.075f;
 
         /* The player, attached to the handle */
-        private Humanoid _player = null;
+        private Player _player = null;
+
+        /* Player's StopEmote method */
+        private MethodInfo _playerStopAnimation =
+            AccessTools.Method(typeof(Player), "StopEmote");
 
         /* The ship object */
         private Ship _ship = null;
@@ -89,14 +95,14 @@ namespace Burlak.Core {
                 line.m_dynamicSlack = true;
 
                 /* Set slack */
-                line.SetSlack(0.05f);
+                line.SetSlack(0.075f);
             }
 
             /* Play the sound */
             PlaySound();
 
             /* Save the attached player */
-            _player = player;
+            _player = player as Player;
 
             /* Update the ship and ship's rigid body */
             _ship = transform.parent.GetComponent<Ship>();
@@ -143,14 +149,20 @@ namespace Burlak.Core {
             /* If the there is not attached players */
             if (_player == null) return;
 
+            /* Stop the player animation */
+            _playerStopAnimation.Invoke(_player, null);
+
             /* If the player wants to detach */
-            if (_player.InAttack()) {
+            if (_player.IsCrouching()) {
                 DetachPlayer();
                 return;
             }
 
             /* If the player wants to pull the ship */
             if (!_player.IsBlocking() || _ship.HasPlayerOnboard()) return;
+
+            /* Animate the player */
+            _player.StartEmote("cheer");
 
             /* Lock the speed */
             _shipRigidBody.linearVelocity =
