@@ -20,26 +20,26 @@ namespace Mooring.Patch {
             backHandle.transform.SetParent(parent);
 
             /* Set the local position */
-            if (__instance.name.StartsWith("Karve")) {
+            if (__instance.name == "Karve(Clone)") {
                 headHandle.transform.localPosition =
                     new Vector3(0, 1.4f, -4.6f);
                 backHandle.transform.localPosition =
                     new Vector3(0, 1.4f, 4.6f);
-            } else if (__instance.name.StartsWith("Raft")) {
+            } else if (__instance.name == "Raft(Clone)") {
                 headHandle.transform.localPosition =
                     new Vector3(0, 0, 2.9f);
                 backHandle.transform.localPosition =
                     new Vector3(0, 0, -2.9f);
-            } else if (__instance.name.StartsWith("VikingShip_Ashlands")) {
-                headHandle.transform.localPosition =
-                    new Vector3(0, 6, -16.4f);
-                backHandle.transform.localPosition =
-                    new Vector3(0, 5.9f, 16.3f);
-            } else if (__instance.name.StartsWith("VikingShip")) {
+            } else if (__instance.name == "VikingShip(Clone)") {
                 headHandle.transform.localPosition =
                     new Vector3(0, 2.6f, -10.2f);
                 backHandle.transform.localPosition =
                     new Vector3(0, 2.6f, 10.2f);
+            } else if (__instance.name == "VikingShip_Ashlands(Clone)") {
+                headHandle.transform.localPosition =
+                    new Vector3(0, 6, -16.4f);
+                backHandle.transform.localPosition =
+                    new Vector3(0, 5.9f, 16.3f);
             }
         }
     }
