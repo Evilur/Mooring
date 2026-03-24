@@ -47,7 +47,7 @@ namespace Mooring.Patch {
 
                 /* Get the prefab */
                 GameObject prefab = __instance.GetPrefab(name);
-                if (prefab == null) return;
+                if (prefab == null) continue;
 
                 /* Create a new towing handles */
                 GameObject[] handles = new GameObject[] {
